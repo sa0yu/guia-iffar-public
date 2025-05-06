@@ -2,11 +2,22 @@ import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useUser } from '../contexto/UsuarioContexto';
 
 export default function Home({ navigation }) {
+    const {user, profile, logout, isAdm} = useUser();
+
+    const home_logout = async() => {
+        await logout();
+
+        navigation.navigate('Login');
+    }
+    console.log(isAdm);
     return (
         <LinearGradient colors={['#DFF5EB', '#FFFFFF']} style={styles.container}>
             <View style={styles.centered}>
+                <Text> Olá, {profile?.nome || " Visitante"} </Text>
+
                 <Image
                     source={require('../../assets/marca_pb.png')}
                     style={styles.logo}
@@ -36,13 +47,11 @@ export default function Home({ navigation }) {
                 >
                     Sobre o App
                 </Button>
-                <Button
-                    mode="outlined"
-                    onPress={() => navigation.navigate('Login')}
-                    style={styles.botao}
-                >
-                    Sair
-                </Button>
+
+                {user && (<Button mode="outlined" onPress={home_logout} style={styles.botao}> Sair </Button>)}
+
+                {user && isAdm === true && (<Button mode="outlined" onPress={() => navigation.navigate('FormNovoEvento')} style={styles.botao}> Novo evento </Button>)}
+                
             </View>
         </LinearGradient>
     );

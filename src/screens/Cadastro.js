@@ -39,15 +39,15 @@ export default function Cadastro() {
           ]);
 
           if (erroUsuario) {
-            //Alert.
+            // Alert.alert('Erro ao salvar usuário:', erroUsuario.message);
             alert('Erro ao salvar usuário:', erroUsuario.message);
           } else {
-            //Alert.alert('Conta criada com sucesso!', 'Você já pode fazer login.');
+            // Alert.alert('Conta criada com sucesso!', 'Você já pode fazer login.');
             navigation.navigate('Login');
           }
         }
         setCarregando(false);
-    }
+  }
   
   return (
     <View style={styles.container}>
