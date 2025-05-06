@@ -6,7 +6,7 @@ import {format} from 'date-fns';
 
 
 
-export default function EventoCard({ nome, data, local, inscricao, onPress }) {
+export default function EventoCard({ titulo, data, local, inscricao, onPress }) {
     const theme = useTheme();
 
     const corBadge = inscricao === 'aberta'
@@ -19,7 +19,7 @@ export default function EventoCard({ nome, data, local, inscricao, onPress }) {
         <Card style={styles.card} mode="outlined" onPress={onPress}>
             <Card.Content>
                 <View style={styles.header}>
-                    <Text variant="titleMedium" style={styles.nome}>{nome}</Text>
+                    <Text variant="titleMedium" style={styles.nome}>{titulo}</Text>
                     <Badge style={[styles.badge, { backgroundColor: corBadge }]}>
                         {textoBadge}
                     </Badge>

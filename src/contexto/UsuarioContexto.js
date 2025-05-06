@@ -19,7 +19,6 @@ export const UserProvider = ({children}) => {
     }
 
     // verifica o tipo de usuário
-
     const isAdm = () => {
         if(profile){
             if(profile.tipo === "adm"){
@@ -30,7 +29,7 @@ export const UserProvider = ({children}) => {
             }
         }
         else{
-            return empty;
+            return null;
         }
     }
 

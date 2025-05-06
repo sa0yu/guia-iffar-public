@@ -85,8 +85,6 @@ export default function App() {
             <Tab.Screen name="FormNovoEvento" component={FormNovoEvento} options={{ tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
 
             <Tab.Screen name="Cadastro" component={Cadastro} options={{ tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
-
-          
           </Tab.Navigator>
         </NavigationContainer>
       </UserProvider>

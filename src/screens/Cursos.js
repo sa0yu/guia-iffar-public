@@ -31,7 +31,7 @@ export default function Curso({ navigation }) {
       
 
       {carregando && <ActivityIndicator animating/>} 
-      {!carregando && cursos.length==0 && <Text>Não tem registro</Text>}
+      {!carregando && cursos.length==0 && <Text>Nenhum curso cadastrado</Text>}
 
       {cursos.map((curso, index) => (
         <CursoCard key={index} {...curso} onPress={() => navigation.navigate('DetalheCurso', curso)} />

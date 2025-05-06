@@ -21,7 +21,8 @@ export default function Login({ navigation }){
         });
 
         if (error){
-            // Alert.alert('Erro no login', error.message);
+            // Alert.
+            alert('Erro ao tentar realizar login', error.message);
             console.log(error.message)
             
             setCarregando(false);

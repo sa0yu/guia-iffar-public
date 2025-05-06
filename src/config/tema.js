@@ -6,6 +6,7 @@ export const tema = {
     ...DefaultTheme.colors,
     primary: '#1C9B5E',       // verde principal
     secondary: '#C4112F',     // vermelho destaque
+    third: '#77c9a2',         // verde claro
     background: '#F4F4F4',    // fundo leve
     surface: '#FFFFFF',
     onSurface: '#000000',

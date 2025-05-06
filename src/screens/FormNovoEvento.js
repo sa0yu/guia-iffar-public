@@ -1,13 +1,11 @@
-import { Text, Card, useTheme, TextInput } from 'react-native-paper';
+import { Text, Button, TextInput } from 'react-native-paper';
 import { DatePickerInput } from 'react-native-paper-dates';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useState } from "react";
 
 import { supabase } from '../config/supabase';
 
-export default function FormNovoEvento({navigation}) {
-
-    const theme = useTheme();
+export default function FormNovoEvento({ navigation }) {
 
     const [name, setName] = useState('');
     const [date, setDate] = useState(undefined);
@@ -31,16 +29,19 @@ export default function FormNovoEvento({navigation}) {
             return;
         }
         else{
-            // Alert.alert('Evento cadastrado com sucesso!');
+            // Alert.
+            alert('Evento cadastrado com sucesso!');
             navigation.navigate('Eventos');
         }
         setLoading(false);
     }
 
     return(
-        <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.container}>
+            <Text variant="titleLarge" style={styles.titulo}>Cadastrar Novo Evento</Text>
+
             <TextInput
-                label="Nome"
+                label="Título do evento"
                 value={name}
                 onChangeText={text => setName(text)}
                 style={styles.input}
@@ -50,14 +51,16 @@ export default function FormNovoEvento({navigation}) {
 
             <DatePickerInput
                 locale="pt"
-                label="Data"
+                label="Data do evento"
                 value={date}
                 onChange={(d) => setDate(d)}
                 inputMode="start"
+                style={styles.input}
+                mode="outlined"
             />
 
             <TextInput
-                label="Local"
+                label="Local do evento"
                 value={local}
                 onChangeText={text => setLocal(text)}
                 style={styles.input}
@@ -66,7 +69,7 @@ export default function FormNovoEvento({navigation}) {
             />
 
             <TextInput
-                label="Descrição"
+                label="Descrição do evento"
                 value={description}
                 onChangeText={text => setDescription(text)}
                 style={styles.input}
@@ -82,25 +85,26 @@ export default function FormNovoEvento({navigation}) {
             >
                 Cadastrar
             </Button>
-        </ScrollView>
+
+            <Button
+                mode="outlined"
+                onPress={() => navigation.navigate('Home')}
+                style={styles.button}
+            >
+                Voltar
+            </Button>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: { padding: 16 },
-    card: { marginBottom: 16 },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+    container: {
+        justifyContent: 'center',
+        padding: 20,
     },
-    badge: {
-        color: '#fff',
-        paddingHorizontal: 10,
-        fontSize: 12,
-    },
-    divisor: { marginVertical: 12 },
-    subtitulo: { marginBottom: 4 },
-    descricao: { marginTop: 8, lineHeight: 20 },
-    botaoVoltar: { marginTop: 10 },
+    titulo: { marginBottom: 16 },
+    input: { marginBottom: 15, },
+    button: {
+        marginVertical: 10,
+    }
 });

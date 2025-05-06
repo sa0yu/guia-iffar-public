@@ -2,9 +2,10 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Text, Card, Badge, Divider, Button, useTheme } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import { format } from 'date-fns';
 
 export default function DetalheEvento({ route }) {
-    const { nome, data, local, inscricao, descricao } = route.params;
+    const { titulo, data, local, inscricao, descricao } = route.params;
     const theme = useTheme();
     const navigation = useNavigation();
 
@@ -16,7 +17,7 @@ export default function DetalheEvento({ route }) {
             <Card mode="outlined" style={styles.card}>
                 <Card.Content>
                     <View style={styles.header}>
-                        <Text variant="titleLarge">{nome}</Text>
+                        <Text variant="titleLarge">{titulo}</Text>
                         <Badge style={[styles.badge, { backgroundColor: corBadge }]}>
                             {textoBadge}
                         </Badge>

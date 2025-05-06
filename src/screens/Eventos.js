@@ -1,42 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import { View, ScrollView, StyleSheet} from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import { Text, ActivityIndicator } from 'react-native-paper';
 import EventoCard from '../componentes/EventoCard';
 import { supabase } from '../config/supabase';
-  
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function Eventos({ navigation }) {
+  const [eventos, setEventos] = useState([]);
+  const [carregando, setCarregando] = useState(true);
 
-    const [eventos, setEventos] = useState([]);
-    const [carregando, setCarregando] = useState(true);
+  // sempre que o 'foco' estiver na tela (tela aberta/exibida), atualiza a consulta
+  useFocusEffect(
+    // sempre que uma dependência for alterada (um novo registro)...
+    useCallback(() => {
+      let ativo = true;
 
-    useEffect(()=>{
-        async function buscarEventos() {
-            const {data, error} = await supabase.from('eventos').select('*'); //pode retornar dados, ou erros
+      async function buscarEventos() {
+        setCarregando(true);
+        const { data, error } = await supabase.from('eventos').select('*');
 
-            if(error){
-                console.log(error);
-            }
-            else{
-              setEventos(data);
-            }
-            setCarregando(false);
+        if (ativo) {
+          if (error) {
+            console.log(error);
+          } else {
+            setEventos(data);
+          }
+          setCarregando(false);
         }
-        buscarEventos();
-    }, [] )
-    
-    return (
+      }
+
+      buscarEventos();
+
+      return () => {
+        ativo = false;
+      };
+    }, [])
+  );
+
+  return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text variant="titleLarge" style={styles.titulo}>Eventos do Campus</Text>
-      
 
-      {carregando && <ActivityIndicator animating/>} 
-      {!carregando && eventos.length==0 && <Text>Não tem registro</Text>}
+      {carregando && <ActivityIndicator animating />}
+      {!carregando && eventos.length === 0 && <Text>Nenhum evento cadastrado</Text>}
 
       {eventos.map((eventos, index) => (
         <EventoCard key={index} {...eventos} onPress={() => navigation.navigate('DetalheEvento', eventos)} />
       ))}
-
     </ScrollView>
   );
 }
